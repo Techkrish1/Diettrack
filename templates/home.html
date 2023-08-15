@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+{% load static %} 
+{% load mathfilters %} 
+{% load humanize%}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ---------bootstrap linked--------------- -->
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>Food Calorie Calculator</title>
+</head>
+
+<body>
+    <!-- --------- Nav Bar --------------- -->
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000/"><strong><b>DIETTRACK</b></strong></a>
+        </div>
+    </nav>
+
+    <!-- ---------Find Calories -------------- -->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class=" mb-5 mt-5"><strong>FOOD CALORIE CALCULATOR</strong></h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group input-group-lg mb-5">
+                        <input type="text" name="query" class="form-control inputstyle"
+                            placeholder="Search for calories in your food..." required>
+                        <button class="btn whoop" type="submit" id="button-addon2">Find calories</button>
+                    </div>
+                </form>
+
+                <!-- ---------Before the api request--------------- -->
+
+                {% if not api %}
+                    <div class="container mt-5 mb-5">
+                        <div class="custom-box">
+                            <h4 class="custom-box-heading">Importance of Knowing Food Calories</h4>
+                            <p class="custom-box-text">
+                                Knowing the calorie content of food is crucial for maintaining a healthy diet, managing weight,
+                                and making informed eating choices that align with individual health goals.
+                                Caloric awareness enables better portion control and balanced nutritional intake,
+                                contributing to overall well-being.
+                            </p>
+                        </div>
+                    </div>
+                    <h1> <strong>TO BURN CALORIES 4 EFFECTIVE WAYS</strong></h1>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card custom-card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Exercise</h4>
+                                        <p class="card-text">
+                                            Engaging in regular exercise, such as circuit training, 
+                                            weightlifting, and intense cardio workouts and other strength training, 
+                                            increases your heart rate and resulting in higher energy expenditure. 
+                                            This helps your body burn calories more efficiently, contributing to weight management and overall fitness.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card custom-card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Jogging</h4>
+                                        <p class="card-text">Jogging is a high-impact cardiovascular activity that accelerates your heart rate, 
+                                            leading to a significant calorie burn. Its rhythmic nature engages multiple muscle groups and promotes fat loss, 
+                                            making it an effective choice for improving cardiovascular health and shedding extra pounds.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <div class="card custom-card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Walking</h4>
+                                        <p class="card-text">Walking, a low-impact activity, might burn fewer calories compared to intense workouts, 
+                                            but it's sustainable and accessible to people of all fitness levels. 
+                                            Consistent brisk walking can still lead to calorie expenditure over time, 
+                                            supporting weight maintenance, joint health, and mental well-being.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <div class="card custom-card">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Yoga</h4>
+                                        <p class="card-text">Yoga combines physical postures, breath control, and meditation, enhancing both physical 
+                                            and mental aspects of well-being. While it may not burn as many calories as high-intensity exercises, yoga promotes muscle strength, 
+                                            flexibility, and relaxation, contributing to a balanced and healthy lifestyle.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- --------- after getting api--------------- -->
+                
+                {% if api %}
+                {% if api == 'oops! there was an error' %}
+                    <div class="alert alert-warning"> Oh no! something went wrong.Please try again in sometime. </div>
+                {% else %}
+
+                    <h1 class="mb-3"> <strong>{{api.0.name | capfirst}}</strong> has a total of <strong> {{api.0.calories}} Calories</strong>
+                        {% if api.0.calories > 200 %}
+                            <img src="{% static 'images/shocked.png' %}" class="img-responsive" style="height: 50px; width: 50px;" />
+                        {% endif %}
+                    </h1>
+                        
+                    {% if api.0.sodium_mg > 1000 %}
+                        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+                            <div>
+                                This food contains an high amount of sodium. 
+                                High Sodium cuases Severe dehydration and water
+                                retention.
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if api.0.sugar_g > 50 %}
+                        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+                            <div>
+                                This food contains an high amount of Sugar. 
+                                High Sugar cuases insulin spikes and is a no 1
+                                cause for obesity
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                
+            
+            <!-- ---------Nutritional contents-------------- -->
+
+
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="col-md-10 caloriescont shadow rounded">
+                        <div class="row">
+
+                            <div class="container tab mt-3 mb-4">
+                                <h3 class="text-center  mb-5">Nutrition Values</h3>
+                                <div class="car">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            
+                                            <p class="servingsize">Serving Size of 100 Grams of {{api.0.name | capfirst}} contains <span class="float-end"></span></p>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nutrient</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>carbohydrates</td>
+                                                        <td>{{api.0.carbohydrates_total_g}} g</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>cholesterol</td>
+                                                        <td>{{api.0.cholesterol_mg}} mg</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>saturated fat</td>
+                                                        <td>{{api.0.fat_saturated_g}} g</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>Total fat</td>
+                                                        <td>{{api.0.fat_total_g}} g</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td>fiber</td>
+                                                        <td>{{api.0.fiber_g}} g</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>6</td>
+                                                        <td>potassium</td>
+                                                        <td>{{api.0.potassium_mg}} mg</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>7</td>
+                                                        <td>protein</td>
+                                                        <td>{{api.0.protein_g}} g</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>8</td>
+                                                        <td>sodium</td>
+                                                        <td>{{api.0.sodium_mg}} mg</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>9</td>
+                                                        <td>sugar</td>
+                                                        <td>{{api.0.sugar_g}} g</td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- ---------to burn calories--------------- -->
+
+                <h1 class="mt-3 text-center"><strong>For an Average Person</strong></h1>
+                <h4 class="mt-3 mb-4 mt-1 text-center">If you want to burn {{api.0.calories}} calories you will have to</h4>
+                                
+
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <div class="burn text-center">
+                                <div class="burn-header">
+                                    <img
+                                        src="{% static 'images/gym.avif' %}"
+                                        alt="" class="w-100">
+                                </div>
+                                <div class="burn-body">
+                                    <h5 class="burn-title mt-3">Get a Gym Workout</h5>
+                                    <p class="burn-text mt-3">You will have to exercise for <h1><strong>
+                                        {{api.0.calories | div:483|mul:60 | floatformat:0}}</strong></h1> <strong style="color: #ffffff;">Minutes</strong> </p>
+                                </div>
+                                <div class="burn-footer text-muted">
+                                    {{api.0.calories | div:483|mul:60 | floatformat:0}} Minutes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <div class="burn text-center">
+                                <div class="burn-header">
+                                    <img
+                                        src="{% static 'images/Jogging.jpg' %}"
+                                        alt="" class="w-100">
+                                </div>
+                                <div class="burn-body">
+                                    <h5 class="burn-title mt-3">Go for a healthy Jog</h5>
+                                    <p class="burn-text mt-3">You will have to jog for <h1><strong>
+                                        {{api.0.calories | div:229|mul:60| floatformat:0}}</strong></h1> <strong style="color: #ffffff;">Minutes</strong></p>
+                                </div>
+                                <div class="burn-footer text-muted">
+                                    {{api.0.calories | div:229|mul:60| floatformat:0}} Minutes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <div class="burn text-center">
+                                <div class="burn-header">
+                                    <img
+                                        src="{% static 'images/yoga.jpg' %}"
+                                        alt="" class="w-100">
+                                </div>
+                                <div class="burn-body">
+                                    <h5 class="burn-title mt-3">Do Power Yoga</h5>
+                                    <p class="burn-text mt-3">You will have to do Yoga for <h1><strong>
+                                        {{api.0.calories | div:223|mul:60 | floatformat:0}} </strong></h1> <strong style="color: #ffffff;">Minutes</strong></p>
+                                </div>
+                                <div class="burn-footer text-muted">
+                                    {{api.0.calories | div:223|mul:60 | floatformat:0}} Minutes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <div class="burn text-center">
+                                <div class="burn-header">
+                                    <img
+                                        src="{% static 'images/walk.jpg' %}"
+                                        alt="" class="w-100">
+                                </div>
+                                <div class="burn-body">
+                                    <h5 class="burn-title mt-3">Go for a Brisk Walk</h5>
+                                    <p class="burn-text mt-3">You will have to walk for <h1><strong>
+                                        {{api.0.calories | div:200|mul:60 | floatformat:0}} </strong></h1> <strong style="color: #ffffff;">Minutes</strong></p>
+                                </div>
+                                <div class="burn-footer text-muted">
+                                    {{api.0.calories | div:200|mul:60 | floatformat:0}} Minutes
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>    
+                </div>
+                
+                <!-- --------- Chart based on the Nutrition values --------------- -->
+
+
+                <h1 class="mt-5 text-center"><strong> Simple Detailed Chart </strong></h1>
+                
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="col-md-10 caloriescont shadow rounded">
+                        <div class="row">
+                            
+                            <div>
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% endif %}
+                </div>
+            
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <script>
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                    labels: ['Carbohydrates', 'Cholesterol', 'Saturated fat', 'Total Fat',
+                     'Fiber Content', 'Potassium', 'Protein', 'Sodium', 'Sugar'],
+                    datasets: [{
+                        label: 'Nutritional values of {{api.0.name | capfirst}}',
+                        data: [
+                            '{{api.0.carbohydrates_total_g}}',
+                            '{{api.0.cholesterol_mg}}',
+                            '{{api.0.fat_saturated_g}}',
+                            '{{api.0.fat_total_g}}',
+                            '{{api.0.fiber_g}}',
+                            '{{api.0.potassium_mg}}',
+                            '{{api.0.protein_g}}',
+                            '{{api.0.sodium_mg}}',
+                            '{{api.0.sugar_g}}',
+                        
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                        ],
+                        
+                        borderWidth: 1
+                    }]
+                    },
+                    options: {
+                        responsive:true,
+                        maintainAspectRatio:false,
+                    scales: {
+                        y: {
+                        beginAtZero: true
+                        }
+                    }
+                    }
+                });
+                </script>
+
+<!-- --------- footer section -------------- -->
+
+<footer class="footer bg-light text-dark py-3 mt-5">
+    <div class="container">
+        <div class="text-center">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-3">Connect with me:</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="https://github.com/Techkrish1" target="_blank" rel="noopener noreferrer">
+                                <img src="{% static 'images/github.svg' %}" class="footer-icon" alt="">
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/gokula-krishnan-venkatesan-93a3a8227" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin fa-2x"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="mailto:krishgokul4002@gmail.com">
+                                <img src="{% static 'images/envelope-fill.svg' %}" class="footer-icon" alt="">
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-google fa-2x"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+   
+ 
+
+
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+body {
+    background-color: #f6fbf4;
+}
+
+.navbar {
+  background-color: #ffffff;
+  padding: 10px 20px; 
+}
+
+.navbar a {
+  color: #000000;
+}
+
+.logo {
+  width: 13em;
+  height: 63px;
+}
+
+h1 {
+  font-weight: 300;
+}
+
+h1 strong {
+  font-weight: 600;
+  color: #da0ec6;
+}
+
+/* input box */
+
+.input-group-lg .inputstyle {
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.input-group-lg .inputstyle:focus {
+  border-color: #6eff6b;
+  box-shadow: 0 0 5px rgba(26, 249, 56, 0.7);
+}
+
+.whoop {
+  background-color: #010fd4;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.whoop:hover {
+  background-color:#6eff6b;
+}
+
+/* importance to know calories */
+
+.custom-box {
+  background-color: #3498db;
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+}
+
+.custom-box-heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.custom-box-text {
+  font-size: 18px;
+}
+
+/* best ways to burn calories */
+
+.custom-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+
+.tab {
+  max-width: 800px;
+}
+
+.txt {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Nutrition values styles */
+
+.car {
+  background-color: #f8f9fa;
+  border: none;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  border-radius: 10px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+/* to burn calories */
+
+.burn {
+  border: 1px solid #ddd;
+  background-color: #000000;
+  border-radius: 30px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.burn:hover {
+  transform: translateY(-5px);
+}
+
+.burn-header img {
+  object-fit: cover;
+  max-height: 200px;
+  border-radius: 8px 8px 0 0;
+}
+
+.burn-title {
+  font-size: 20px;
+  color: #dcd5d5;
+}
+
+.burn-text {
+  font-size: 16px;
+  color: #dcd5d5;
+}
+
+.burn-footer {
+  font-size: 18px;
+  padding: 5px;
+}
+
+/* chart style */
+
+.caloriescont {
+  background-color: #ffffff;
+  padding: 30px;
+}
+
+.caloriescont ul {
+  padding: 0px;
+}
+
+.caloriescont ul li {
+  list-style: none;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #efefef;
+  width: 80%;
+}
+
+.caloriescont h3 {
+  color: #da0ec6;
+  font-size: 2em;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.caloriescont h5 {
+  color: #da0ec6;
+}
+
+.servingsize {
+  background-color: #000000;
+  padding: 10px;
+  color: #ffffff;
+}
+
+/* footer style */
+
+.footer-icon{
+  height: 40px;
+  width: 40px;
+}
+
+
+.social-icons {
+  margin-top: 10px;
+}
+
+
+.social-icon {
+  font-size: 24px;
+  color: #fff;
+  margin-right: 15px;
+}
+
