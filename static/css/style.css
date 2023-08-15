@@ -213,19 +213,9 @@ h1 strong {
 /* footer style */
 
 .footer-icon{
-  height: 40px;
-  width: 40px;
+  height: 25px;
+  width: 28px;
 }
 
 
-.social-icons {
-  margin-top: 10px;
-}
-
-
-.social-icon {
-  font-size: 24px;
-  color: #fff;
-  margin-right: 15px;
-}
 
