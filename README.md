@@ -16,11 +16,11 @@
 
 ### Demo
 
-This is a brief demo of the functionality of the project.
+Please check out the functionality of the project using this link.
 
-<p align="center">
-<img src="" alt="demo video" width="720"/>
-</p>
+```bash
+git clone https://diettrack.onrender.com/
+```
 
 <br />
 
